@@ -4,9 +4,11 @@ export class LocalStorageService {
     }
     getAll() {
         const data = localStorage.getItem(this.storageKey);
-        console.log(this.storageKey);
-        console.log(data);
-        return data ? JSON.parse(data) : [];
+        if (!data)
+            return [];
+        const parsed = JSON.parse(data);
+        console.log(parsed);
+        return parsed.map((item) => (Object.assign(Object.assign({}, item), { dueDate: item.dueDate ? new Date(item.dueDate) : null })));
     }
     add(item) {
         const items = this.getAll();

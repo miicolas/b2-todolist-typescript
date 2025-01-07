@@ -1,7 +1,7 @@
 import { TaskController } from "./controllers/task-controller.js";
 const taskListElement = document.getElementById("task-list");
 const taskForm = document.getElementById("task-form");
-const taskController = new TaskController("1");
+const taskController = new TaskController("2");
 taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
     console.log("Form submitted");
@@ -9,27 +9,41 @@ taskForm.addEventListener("submit", (event) => {
     const description = document.getElementById("description").value;
     const dueDate = document.getElementById("due-date").value;
     console.log(title, description, dueDate);
-    const newTask = {
-        id: "",
-        title,
-        description,
-        dueDate: new Date(dueDate),
-        completed: false,
-        userId: "1"
-    };
-    taskController.createTask(newTask);
+    taskController.createTask(title, description, dueDate);
+    taskForm.reset();
 });
 function taskListItem(task) {
-    var _a;
     const taskListItemElement = document.createElement("li");
+    const dueDate = task.dueDate ? new Date(task.dueDate).toLocaleDateString("fr-FR") : "No due date";
     taskListItemElement.innerHTML = `
-        <h3>${task.title}</h3>
-        <p>${task.description}</p>
-        <p>Due date: ${((_a = task.dueDate) === null || _a === void 0 ? void 0 : _a.toLocaleDateString()) || "No due date"}</p>
-        <button>Edit</button>
-        <button>Delete</button>
-        <button>Mark as Complete</button>
-        `;
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4 hover:shadow-lg transition-shadow">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="text-lg font-semibold text-gray-800">${task.title}</h3>
+                <span class="text-sm text-gray-500">${dueDate}</span>
+            </div>
+            
+            <p class="text-gray-600 mb-4">${task.description}</p>
+            
+            <div class="flex justify-end gap-2">
+                <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-full">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                    </svg>
+                </button>
+                <button class="p-2 text-red-600 hover:bg-red-50 rounded-full">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                    </svg>
+                </button>
+                <button class="p-2 text-green-600 hover:bg-green-50 rounded-full">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <path d="M22 4L12 14.01l-3-3"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    `;
     return taskListItemElement;
 }
 function renderTasks() {
