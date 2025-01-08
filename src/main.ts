@@ -1,11 +1,11 @@
 import { TaskController } from "./controllers/task-controller.js";
 import { Task } from "./models/type.js";
 
+
 const taskListElement = document.getElementById("task-list") as HTMLElement;
 const taskForm = document.getElementById("task-form") as HTMLFormElement;
 
 const taskController = new TaskController("2");
-
 
 (window as any).taskController = taskController;
 

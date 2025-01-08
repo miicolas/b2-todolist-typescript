@@ -1,5 +1,6 @@
 {
   "module": "types",
+  "type": "module",
   "scripts": {
     "dev": "npx tsc --watch"
   },

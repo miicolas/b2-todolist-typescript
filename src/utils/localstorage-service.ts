@@ -1,4 +1,8 @@
-export class LocalStorageService<T> {
+interface Identifiable {
+  id: string;
+}
+
+export class LocalStorageService<T extends Identifiable> {
   constructor(private storageKey: string) {}
 
   getAll(): T[] {
@@ -35,6 +39,4 @@ export class LocalStorageService<T> {
   setItem(key: string, value: string): void {
     localStorage.setItem(key, value);
   }
-
-
 }
