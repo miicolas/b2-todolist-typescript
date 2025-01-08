@@ -15,6 +15,11 @@ export class LocalStorageService {
         items.push(item);
         this.saveAll(items);
     }
+    delete(item) {
+        const items = this.getAll();
+        const filteredItems = items.filter(i => i.id !== item.id);
+        this.saveAll(filteredItems);
+    }
     saveAll(items) {
         localStorage.setItem(this.storageKey, JSON.stringify(items));
     }
@@ -23,8 +28,5 @@ export class LocalStorageService {
     }
     setItem(key, value) {
         localStorage.setItem(key, value);
-    }
-    removeItem(key) {
-        localStorage.removeItem(key);
     }
 }
