@@ -9,11 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { LocalStorageService } from "../utils/localstorage-service.js";
 import { handleCreateTodo } from "../api/createTodo.js";
+// Class TaskController
 export class TaskController {
     constructor(currentUserId) {
         this.taskService = new LocalStorageService("tasks");
         this.currentUserId = currentUserId;
     }
+    // Création d'une tâche
     createTask(title, description, dueDate) {
         return __awaiter(this, void 0, void 0, function* () {
             const createTask = yield handleCreateTodo(title, description, dueDate);

@@ -7,25 +7,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+// Imports
 import { TaskController } from "./controllers/task-controller.js";
 import { getSession } from "./utils/get-session.js";
+// Récupération du TOKEN
 const token = getSession();
+// Si il n'y a pas de TOKEN -> redirection vers la page de connexion
 if (!token) {
     console.log("No token found, redirecting to signin page");
     window.location.href = "/";
 }
+// Récupération de la liste des tâches du formulaire de création de tâches
 const taskListElement = document.getElementById("task-list");
 const taskForm = document.getElementById("task-form");
+// Création d'un TaskController
 const taskController = new TaskController("2");
+// Stockage du TaskController dans le navigateur
 window.taskController = taskController;
+// Lorsque le formulaire est soumis :
 taskForm.addEventListener("submit", (event) => {
+    // Empeche la page de s'actualiser
     event.preventDefault();
-    const title = document.getElementById("title").value;
-    const description = document.getElementById("description").value;
-    const dueDate = document.getElementById("due-date").value;
+    // Récupération des éléments du formulaire
+    const titleElement = document.getElementById("title");
+    const descriptionElement = document.getElementById("description");
+    const dueDateElement = document.getElementById("due-date");
+    // Si un élément n'est pas trouvé -> stop la fonction
+    if (!titleElement || !descriptionElement || !dueDateElement) {
+        console.log("Title, description, or dueDate input not found");
+        return;
+    }
+    // Récupération des valeurs du formulaire
+    const title = titleElement.value;
+    const description = descriptionElement.value;
+    const dueDate = dueDateElement.value;
+    // Si une valeur est vide -> stop la fonction
+    if (!title || !description || !dueDate) {
+        console.log("Please enter a title, a description, and a dueDate");
+        return;
+    }
+    // Création d'une tâche et réinitialise le formulaire
     taskController.createTask(title, description, dueDate);
     taskForm.reset();
 });
+// Template des tâches
 function taskListItem(task) {
     const taskListItemElement = document.createElement("li");
     const dueDate = task.dueDate ? new Date(task.dueDate).toLocaleDateString("fr-FR") : "No due date";
@@ -48,15 +73,19 @@ function taskListItem(task) {
             </div>
         </div>
     `;
+    // Récupération des boutons des tâches
     const deleteTaskButton = taskListItemElement.querySelector('[data-task="delete"]');
     const editTaskButton = taskListItemElement.querySelector('[data-task="edit"]');
     const completeTaskButton = taskListItemElement.querySelector('[data-task="complete"]');
+    // Suppression de la tâche
     deleteTaskButton.addEventListener("click", () => {
         console.log("Delete task");
     });
+    // Modification de la tâche
     editTaskButton.addEventListener("click", () => {
         console.log("Edit task");
     });
+    // Complétion de la tâche
     completeTaskButton.addEventListener("click", () => {
         console.log("Complete task");
     });

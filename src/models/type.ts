@@ -1,3 +1,4 @@
+// Export du type Task
 export type Task = {
     id: string;
     title: string;
@@ -7,6 +8,7 @@ export type Task = {
     userId: string;
 };
 
+// Export du type User
 export type User = {
     id: string;
     name: string;

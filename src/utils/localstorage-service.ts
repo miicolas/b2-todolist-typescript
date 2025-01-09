@@ -5,7 +5,9 @@ interface Identifiable {
   id: string;
 }
 
+// Class LocalStorageService basé sur l'interface Indentifiable
 export class LocalStorageService<T extends Identifiable> {
+  // A voir
   constructor(private storageKey: string) {}
 
   async getAll(): Promise<T[]> {

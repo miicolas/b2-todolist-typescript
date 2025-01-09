@@ -8,7 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { handleGetTodo } from "../api/getTodos.js";
+// Class LocalStorageService basé sur l'interface Indentifiable
 export class LocalStorageService {
+    // A voir
     constructor(storageKey) {
         this.storageKey = storageKey;
     }

@@ -1,7 +1,9 @@
+// Imports
 import { Task } from "../models/type.js";
 import { LocalStorageService } from "../utils/localstorage-service.js";
 import { handleCreateTodo} from "../api/createTodo.js";
 
+// Class TaskController
 export class TaskController {
   private taskService: LocalStorageService<Task>;
   private currentUserId: string;
@@ -11,10 +13,11 @@ export class TaskController {
     this.currentUserId = currentUserId;
   }
 
+
+  // Création d'une tâche
   async createTask(title: string, description: string, dueDate: string) {
     const createTask = await handleCreateTodo(title, description, dueDate);
     return createTask;
-
   }
 
   async getAllTasks(): Promise<Task[]> {
