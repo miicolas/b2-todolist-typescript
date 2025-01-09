@@ -54,8 +54,7 @@ function taskListItem(task: Task) {
     const completeTaskButton = taskListItemElement.querySelector('[data-task="complete"]') as HTMLButtonElement;
 
     deleteTaskButton.addEventListener("click", () => {
-        taskController.deleteTask(task.id);
-        taskListItemElement.remove();
+        console.log("Delete task");
     });
 
     editTaskButton.addEventListener("click", () => {
@@ -69,13 +68,15 @@ function taskListItem(task: Task) {
     return taskListItemElement;
 }
 
-function renderTasks() {
+async function renderTasks() {
     taskListElement.innerHTML = "";
-    const tasks = taskController.getAllTasks();
-    console.log(tasks);
-    tasks.forEach(task => {
-        taskListElement.appendChild(taskListItem(task));
-    });
-}
+    const tasks = await taskController.getAllTasks();
+    if (Array.isArray(tasks)) {
+        tasks.forEach(task => {
+            taskListElement.appendChild(taskListItem(task));
+        });
+    } else {
+        console.error("Tasks is not an array:", tasks);
+    }}
 
 renderTasks();

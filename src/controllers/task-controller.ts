@@ -17,24 +17,11 @@ export class TaskController {
 
   }
 
-  getAllTasks(): Task[] {
-    return this.taskService.getAll();
+  async getAllTasks(): Promise<Task[]> {
+    const tasks = await this.taskService.getAll();
+    return tasks
   }
 
-  setTaskAsCompleted(taskId: string): void {
-    const tasks = this.taskService.getAll();
-    const task = tasks.find(t => t.id === taskId);
-    if (task) {
-      task.completed = true;
-      this.taskService.saveAll(tasks);
-    }
-  }
-
-  deleteTask(taskId: string): void {
-    const tasks = this.taskService.getAll();
-    const filteredTasks = tasks.filter(t => t.id !== taskId);
-    this.taskService.saveAll(filteredTasks);
-  }
 
   
 }

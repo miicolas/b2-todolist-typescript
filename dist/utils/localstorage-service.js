@@ -1,30 +1,22 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { handleGetTodo } from "../api/getTodos.js";
 export class LocalStorageService {
     constructor(storageKey) {
         this.storageKey = storageKey;
     }
     getAll() {
-        const data = localStorage.getItem(this.storageKey);
-        if (!data)
-            return [];
-        const parsed = JSON.parse(data);
-        console.log(parsed);
-        return parsed.map((item) => (Object.assign(Object.assign({}, item), { dueDate: item.dueDate ? new Date(item.dueDate) : null })));
-    }
-    add(item) {
-        const items = this.getAll();
-        items.push(item);
-        this.saveAll(items);
-    }
-    delete(item) {
-        const items = this.getAll();
-        const filteredItems = items.filter(i => i.id !== item.id);
-        this.saveAll(filteredItems);
-    }
-    saveAll(items) {
-        localStorage.setItem(this.storageKey, JSON.stringify(items));
-    }
-    getAllItems() {
-        return this.getAll();
+        return __awaiter(this, void 0, void 0, function* () {
+            const items = yield handleGetTodo();
+            return items;
+        });
     }
     setItem(key, value) {
         localStorage.setItem(key, value);

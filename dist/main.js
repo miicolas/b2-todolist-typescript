@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { TaskController } from "./controllers/task-controller.js";
 import { getSession } from "./utils/get-session.js";
 const token = getSession();
@@ -43,8 +52,7 @@ function taskListItem(task) {
     const editTaskButton = taskListItemElement.querySelector('[data-task="edit"]');
     const completeTaskButton = taskListItemElement.querySelector('[data-task="complete"]');
     deleteTaskButton.addEventListener("click", () => {
-        taskController.deleteTask(task.id);
-        taskListItemElement.remove();
+        console.log("Delete task");
     });
     editTaskButton.addEventListener("click", () => {
         console.log("Edit task");
@@ -55,11 +63,17 @@ function taskListItem(task) {
     return taskListItemElement;
 }
 function renderTasks() {
-    taskListElement.innerHTML = "";
-    const tasks = taskController.getAllTasks();
-    console.log(tasks);
-    tasks.forEach(task => {
-        taskListElement.appendChild(taskListItem(task));
+    return __awaiter(this, void 0, void 0, function* () {
+        taskListElement.innerHTML = "";
+        const tasks = yield taskController.getAllTasks();
+        if (Array.isArray(tasks)) {
+            tasks.forEach(task => {
+                taskListElement.appendChild(taskListItem(task));
+            });
+        }
+        else {
+            console.error("Tasks is not an array:", tasks);
+        }
     });
 }
 renderTasks();

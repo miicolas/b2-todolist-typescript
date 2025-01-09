@@ -21,19 +21,9 @@ export class TaskController {
         });
     }
     getAllTasks() {
-        return this.taskService.getAll();
-    }
-    setTaskAsCompleted(taskId) {
-        const tasks = this.taskService.getAll();
-        const task = tasks.find(t => t.id === taskId);
-        if (task) {
-            task.completed = true;
-            this.taskService.saveAll(tasks);
-        }
-    }
-    deleteTask(taskId) {
-        const tasks = this.taskService.getAll();
-        const filteredTasks = tasks.filter(t => t.id !== taskId);
-        this.taskService.saveAll(filteredTasks);
+        return __awaiter(this, void 0, void 0, function* () {
+            const tasks = yield this.taskService.getAll();
+            return tasks;
+        });
     }
 }
