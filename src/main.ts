@@ -3,9 +3,8 @@ import { Task } from "./models/type.js";
 import { getSession } from "./utils/get-session.js";
 
 const token = getSession();
-console.log("Token:", token); // Ajoutez ce log pour vérifier la valeur du token
 if (!token) {
-    console.log("No token found, redirecting to signin page"); // Ajoutez ce log pour vérifier que la redirection est exécutée
+    console.log("No token found, redirecting to signin page");
     window.location.href = "/";
 }
 

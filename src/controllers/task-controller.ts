@@ -1,5 +1,6 @@
 import { Task } from "../models/type.js";
 import { LocalStorageService } from "../utils/localstorage-service.js";
+import { handleCreateTodo} from "../api/createTodo.js";
 
 export class TaskController {
   private taskService: LocalStorageService<Task>;
@@ -10,17 +11,10 @@ export class TaskController {
     this.currentUserId = currentUserId;
   }
 
-  createTask(title: string, description: string, dueDate: string): Task {
-    const newTask: Task = {
-      id: crypto.randomUUID(),
-      title : title,
-      description : description,
-      dueDate : new Date(dueDate),
-      completed: false,
-      userId: this.currentUserId,
-    };
-    this.taskService.add(newTask);
-    return newTask;
+  async createTask(title: string, description: string, dueDate: string) {
+    const createTask = await handleCreateTodo(title, description, dueDate);
+    return createTask;
+
   }
 
   getAllTasks(): Task[] {
