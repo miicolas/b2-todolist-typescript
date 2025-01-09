@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { handleGetTodo } from "../api/getTodos.js";
+import { handleCompleteTodo } from "../api/completeTodo.js";
+import { handleDeleteTodo } from "../api/deleteTodo.js";
 // Class LocalStorageService basé sur l'interface Indentifiable
 export class LocalStorageService {
     // A voir
@@ -18,6 +20,18 @@ export class LocalStorageService {
         return __awaiter(this, void 0, void 0, function* () {
             const items = yield handleGetTodo();
             return items;
+        });
+    }
+    completeItem(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const item = yield handleCompleteTodo(id);
+            return item;
+        });
+    }
+    deleteItem(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const item = yield handleDeleteTodo(id);
+            return item;
         });
     }
     setItem(key, value) {

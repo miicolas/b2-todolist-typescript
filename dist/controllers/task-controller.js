@@ -22,10 +22,25 @@ export class TaskController {
             return createTask;
         });
     }
+    // Récupération de toutes les tâches
     getAllTasks() {
         return __awaiter(this, void 0, void 0, function* () {
             const tasks = yield this.taskService.getAll();
             return tasks;
+        });
+    }
+    // Complétion d'une tâche
+    completeTask(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const completeTask = yield this.taskService.completeItem(id);
+            return completeTask;
+        });
+    }
+    // Suppression d'une tâche
+    deleteTask(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const deleteTask = yield this.taskService.deleteItem(id);
+            return deleteTask;
         });
     }
 }

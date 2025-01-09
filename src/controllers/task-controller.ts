@@ -13,18 +13,31 @@ export class TaskController {
     this.currentUserId = currentUserId;
   }
 
-
   // Création d'une tâche
   async createTask(title: string, description: string, dueDate: string) {
     const createTask = await handleCreateTodo(title, description, dueDate);
     return createTask;
   }
 
+  // Récupération de toutes les tâches
   async getAllTasks(): Promise<Task[]> {
     const tasks = await this.taskService.getAll();
     return tasks
   }
 
+  // Complétion d'une tâche
+  async completeTask(id: number) {
+    
+    const completeTask = await this.taskService.completeItem(id as unknown as number);
+    return completeTask;
 
+  }
+
+  // Suppression d'une tâche
+  async deleteTask(id: number) {
+    
+    const deleteTask = await this.taskService.deleteItem(id as unknown as number);
+    return deleteTask;
+  } 
   
 }

@@ -1,4 +1,6 @@
 import { handleGetTodo } from "../api/getTodos.js";
+import { handleCompleteTodo } from "../api/completeTodo.js";
+import { handleDeleteTodo } from "../api/deleteTodo.js";
 
 
 interface Identifiable {
@@ -14,6 +16,16 @@ export class LocalStorageService<T extends Identifiable> {
 
     const items: T[] = await handleGetTodo() as unknown as T[];
     return items;
+  }
+
+  async completeItem(id: number) : Promise<T[]> {
+    const item: T[] = await handleCompleteTodo(id) as unknown as T[];
+    return item;
+  }
+
+  async deleteItem(id: number) : Promise<T[]> {
+    const item: T[] = await handleDeleteTodo(id) as unknown as T[];
+    return item;
   }
 
   

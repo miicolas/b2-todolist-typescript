@@ -65,10 +65,13 @@ function taskListItem(task) {
             
             <div class="flex justify-end gap-2" data-task-id="${task.id}">
                 <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-full" onclick="console.log('Edit task')" data-task="edit">
+                    Edit
                 </button>
                 <button class="p-2 text-red-600 hover:bg-red-50 rounded-full" data-task="delete">
+                    Delete
                 </button>
                 <button class="p-2 text-green-600 hover:bg-green-50 rounded-full" data-task="complete">
+                    Complete
                 </button>
             </div>
         </div>
@@ -79,7 +82,14 @@ function taskListItem(task) {
     const completeTaskButton = taskListItemElement.querySelector('[data-task="complete"]');
     // Suppression de la tâche
     deleteTaskButton.addEventListener("click", () => {
-        console.log("Delete task");
+        var _a;
+        const taskId = (_a = completeTaskButton.closest('[data-task-id]')) === null || _a === void 0 ? void 0 : _a.getAttribute("data-task-id");
+        if (!taskId) {
+            console.log("Task id not found");
+            return;
+        }
+        taskController.deleteTask(taskId);
+        window.location.reload();
     });
     // Modification de la tâche
     editTaskButton.addEventListener("click", () => {
@@ -87,7 +97,15 @@ function taskListItem(task) {
     });
     // Complétion de la tâche
     completeTaskButton.addEventListener("click", () => {
+        var _a;
+        const taskId = (_a = completeTaskButton.closest('[data-task-id]')) === null || _a === void 0 ? void 0 : _a.getAttribute("data-task-id");
+        if (!taskId) {
+            console.log("Task id not found");
+            return;
+        }
         console.log("Complete task");
+        taskController.completeTask(taskId);
+        window.location.reload();
     });
     return taskListItemElement;
 }
