@@ -5,7 +5,7 @@ import { getSession } from "./utils/get-session.js";
 
 // Récupération du TOKEN
 const token = getSession();
-console.log("Token:", token);
+
 // Si il n'y a pas de TOKEN -> redirection vers la page de connexion
 if (!token) {
     console.log("No token found, redirecting to signin page");

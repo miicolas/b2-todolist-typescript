@@ -3,6 +3,7 @@ import { TaskController } from "./controllers/task-controller.js";
 import { getSession } from "./utils/get-session.js";
 // Récupération du TOKEN
 const token = getSession();
+
 console.log("Token:", token);
 // Si il n'y a pas de TOKEN -> redirection vers la page de connexion
 if (!token) {
