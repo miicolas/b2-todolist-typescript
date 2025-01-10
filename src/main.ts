@@ -21,6 +21,15 @@ logoutElement.addEventListener("click", (e: Event) => {
     window.location.reload()
 })
 
+// Récupération du bouton de logout
+const iconElement = document.getElementById("icon") as HTMLElement;
+
+iconElement.addEventListener("click", (e: Event) => {
+    logoutElement.classList.toggle("slide-out")
+    logoutElement.classList.toggle("slide-in")
+    logoutElement.classList.remove("hidden")
+})
+
 // Récupération de la liste des tâches du formulaire de création de tâches
 const taskListElement = document.getElementById("task-list") as HTMLElement;
 const taskForm = document.getElementById("task-form") as HTMLFormElement;

@@ -24,6 +24,13 @@ logoutElement.addEventListener("click", (e) => {
     deleteToken();
     window.location.reload();
 });
+// Récupération du bouton de logout
+const iconElement = document.getElementById("icon");
+iconElement.addEventListener("click", (e) => {
+    logoutElement.classList.toggle("slide-out");
+    logoutElement.classList.toggle("slide-in");
+    logoutElement.classList.remove("hidden");
+});
 // Récupération de la liste des tâches du formulaire de création de tâches
 const taskListElement = document.getElementById("task-list");
 const taskForm = document.getElementById("task-form");
