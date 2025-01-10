@@ -38,9 +38,8 @@ async function handleSignUp(event: Event): Promise<void> {
         return;
     }
 
-    // Connection au back
     try {
-        // Liaison avec le back et envoie du formulaire
+        // Envoie de la requête
         const response = await fetch("http://localhost:3000/api/auth/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -51,16 +50,16 @@ async function handleSignUp(event: Event): Promise<void> {
         const { data } = await response.json();
         console.log(data);
 
-        // En cas d'erreur, créer un message d'erreur
+        // Renvoie d'erreur
         if (!response.ok) throw new Error(data.message || "Sign up failed");
 
-        // En cas de réussite, créer un message de réussite et rediriger vers la page de connection
+        // Renvoie de message de succès
         console.log("Signed up successfully!");
         window.location.href = "/views/";
         window.location.href = "/views/index.html";
 
-    // En cas d'erreur, créer un message d'erreur
     } catch (error) {
+        // Renvoie d'erreur
         console.log(error instanceof Error ? error.message : "Sign up failed");
     }
 }

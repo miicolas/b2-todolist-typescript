@@ -16,6 +16,7 @@ if (!token) {
 // Récupération du bouton de logout
 const logoutElement = document.getElementById("logout-btn") as HTMLElement;
 
+// Suppression du TOKEN et renvoie vers la page de connexion
 logoutElement.addEventListener("click", (e: Event) => {
     deleteToken()
     window.location.reload()
@@ -24,6 +25,7 @@ logoutElement.addEventListener("click", (e: Event) => {
 // Récupération du bouton de logout
 const iconElement = document.getElementById("icon") as HTMLElement;
 
+// Animation du bouton de déconnexion
 iconElement.addEventListener("click", (e: Event) => {
     logoutElement.classList.toggle("slide-out")
     logoutElement.classList.toggle("slide-in")
@@ -101,10 +103,12 @@ function taskListItem(task: Task): HTMLElement | undefined {
         </td>
     `;
 
+    // Récupération des boutons des tâches
     const deleteTaskButton = taskListItemElement.querySelector('.delete-btn');
     const editTaskButton = taskListItemElement.querySelector('.edit-btn');
     const completeTaskButton = taskListItemElement.querySelector('.complete-btn');
 
+    // Suppression de la tâche
     if (deleteTaskButton) {
         deleteTaskButton.addEventListener("click", async () => {
             const taskId = deleteTaskButton.getAttribute("data-id");
@@ -117,6 +121,7 @@ function taskListItem(task: Task): HTMLElement | undefined {
         console.error("Delete button not found for task:", task);
     }
 
+    // Modification de la tâche
     if (editTaskButton) {
         editTaskButton.addEventListener("click", () => {
             const taskId = editTaskButton.getAttribute("data-id");
@@ -146,15 +151,18 @@ function taskListItem(task: Task): HTMLElement | undefined {
         formEdit.addEventListener("submit", async (event: Event) => {
             event.preventDefault(); // Empêche la soumission du formulaire
 
+            // Récupération des nouvelles valeurs
             const newTitle = editTitleElement.value;
             const newDescription = editDescriptionElement.value;
             const newDueDate = editDueDateElement.value.split('T')[0];
 
+            // Vérification de l'existance des nouvelles valeurs
             if (!newTitle || !newDescription || !newDueDate) {
                 console.log("Please enter a title, a description, and a due date");
                 return;
             }
 
+            // Modification de la tâche et rafraichissement de la page
             await taskController.editTask(taskId as unknown as number, newTitle, newDescription, newDueDate as unknown as Date);
             modalEdit.classList.add("hidden");
             formEdit.reset();
@@ -167,6 +175,7 @@ function taskListItem(task: Task): HTMLElement | undefined {
         console.error("Edit button not found for task:", task);
     }
 
+    // Complétion de la tâche
     if (completeTaskButton) {
         completeTaskButton.addEventListener("click", async () => {
             const taskId = completeTaskButton.getAttribute("data-id");
