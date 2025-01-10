@@ -54,6 +54,7 @@ function handleSignIn(event) {
             if (!response.ok)
                 throw new Error(data.message || "Sign in failed");
             window.location.href = "/views/dashboard.html";
+            // En cas d'erreur, créer un message d'erreur
         }
         catch (error) {
             console.log(error instanceof Error ? error.message : "Sign in failed");

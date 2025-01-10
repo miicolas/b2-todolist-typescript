@@ -11,6 +11,7 @@ import { handleCreateTodo } from "../api/createTodo.js";
 import { handleGetTodo } from "../api/getTodos.js";
 import { handleCompleteTodo } from "../api/completeTodo.js";
 import { handleDeleteTodo } from "../api/deleteTodo.js";
+import { handleEditTodo } from "../api/editTodo.js";
 // Class TaskController
 export class TaskController {
     // Création d'une tâche
@@ -36,6 +37,12 @@ export class TaskController {
     deleteTask(id) {
         return __awaiter(this, void 0, void 0, function* () {
             yield handleDeleteTodo(id);
+        });
+    }
+    // Modification d'une tâche
+    editTask(id, title, description, dueDate) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield handleEditTodo(id, title, description, dueDate);
         });
     }
 }
