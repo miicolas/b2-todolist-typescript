@@ -4,10 +4,10 @@ import { getSession } from "../utils/get-session.js";
 interface createTodoData {
     title: string;
     description: string;
-    dueDate: string;
+    dueDate: Date;
 }
 
-export async function handleCreateTodo(title: string, description: string, dueDate: string): Promise<void> {
+export async function handleCreateTodo({title, description, dueDate}: createTodoData): Promise<void> {
 
     if (!title || !description || !dueDate) {
         console.log("Please enter a title, description and due date");

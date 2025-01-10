@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { getSession } from "../utils/get-session.js";
-export function handleEditTodo(id, title, description, dueDate) {
-    return __awaiter(this, void 0, void 0, function* () {
+export function handleEditTodo(_a) {
+    return __awaiter(this, arguments, void 0, function* ({ id, title, description, dueDate }) {
         try {
             console.log(getSession());
             const response = yield fetch("http://localhost:3000/api/manage/todo/edit", {

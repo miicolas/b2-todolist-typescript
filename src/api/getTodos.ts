@@ -1,17 +1,5 @@
 import { getSession } from "../utils/get-session.js";
 
-// getTodo.ts
-interface getTodoData {
-    title: string;
-    description: string;
-    dueDate: string;
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    userId: string;
-    completed: boolean;
-}
-
 export async function handleGetTodo(): Promise<void> {
 
     try {

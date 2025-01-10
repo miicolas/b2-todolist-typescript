@@ -75,7 +75,7 @@ taskForm.addEventListener("submit", async (event: Event) => {
     }
 
     // Création d'une tâche et réinitialise le formulaire
-    await taskController.createTask(title, description, dueDate);
+    await taskController.createTask(title, description, new Date(dueDate));
     taskForm.reset();
     renderTasks();
 });

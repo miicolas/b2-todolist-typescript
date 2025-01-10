@@ -8,8 +8,8 @@ import { handleEditTodo } from "../api/editTodo.js";
 export class TaskController {
 
   // Création d'une tâche
-  async createTask(title: string, description: string, dueDate: string): Promise<void> {
-    await handleCreateTodo(title, description, dueDate);
+  async createTask(title: string, description: string, dueDate: Date): Promise<void> {
+    await handleCreateTodo({title, description, dueDate});
   }
 
   // Récupération de toutes les tâches
@@ -30,6 +30,6 @@ export class TaskController {
 
   // Modification d'une tâche
   async editTask(id: number, title: string, description: string, dueDate: Date): Promise<void> {
-    await handleEditTodo(id, title, description, dueDate);
+    await handleEditTodo({id, title, description, dueDate});
   }
 } 

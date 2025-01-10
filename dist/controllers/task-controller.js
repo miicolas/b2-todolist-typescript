@@ -17,7 +17,7 @@ export class TaskController {
     // Création d'une tâche
     createTask(title, description, dueDate) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield handleCreateTodo(title, description, dueDate);
+            yield handleCreateTodo({ title, description, dueDate });
         });
     }
     // Récupération de toutes les tâches
@@ -42,7 +42,7 @@ export class TaskController {
     // Modification d'une tâche
     editTask(id, title, description, dueDate) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield handleEditTodo(id, title, description, dueDate);
+            yield handleEditTodo({ id, title, description, dueDate });
         });
     }
 }

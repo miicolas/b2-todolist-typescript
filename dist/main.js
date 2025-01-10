@@ -66,7 +66,7 @@ taskForm.addEventListener("submit", (event) => __awaiter(void 0, void 0, void 0,
         return;
     }
     // Création d'une tâche et réinitialise le formulaire
-    yield taskController.createTask(title, description, dueDate);
+    yield taskController.createTask(title, description, new Date(dueDate));
     taskForm.reset();
     renderTasks();
 }));

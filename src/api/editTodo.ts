@@ -3,16 +3,13 @@ import { getSession } from "../utils/get-session.js";
 // editTodo.ts
 interface  EditTodo {
     title: string;
-    dueDate: string;
-    updatedAt: string;
-    userId: string;
-    completed: boolean;
+    dueDate: Date;
     description: string;
     id: number;
     
 }
 
-export async function handleEditTodo(id: number, title: string, description: string, dueDate: Date): Promise<void> {
+export async function handleEditTodo({id, title, description, dueDate}: EditTodo): Promise<void> {
 
     try {
         console.log(getSession());

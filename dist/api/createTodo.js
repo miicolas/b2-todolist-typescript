@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { getSession } from "../utils/get-session.js";
-export function handleCreateTodo(title, description, dueDate) {
-    return __awaiter(this, void 0, void 0, function* () {
+export function handleCreateTodo(_a) {
+    return __awaiter(this, arguments, void 0, function* ({ title, description, dueDate }) {
         if (!title || !description || !dueDate) {
             console.log("Please enter a title, description and due date");
             return;

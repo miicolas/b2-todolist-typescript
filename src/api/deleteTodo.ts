@@ -1,14 +1,5 @@
 import { getSession } from "../utils/get-session.js";
 
-// delete todo
-interface getTodoData {
-    title: string;
-    dueDate: string;
-    updatedAt: string;
-    userId: string;
-    completed: boolean;
-}
-
 export async function handleDeleteTodo(id: number): Promise<void> {
 
     try {
