@@ -1,8 +1,4 @@
-// Interface
-interface SignInData {
-    username: string;
-    password: string;
-}
+import { signInData } from "../models/type.js";
 
 // Récupuration du formulaire de connection
 document.addEventListener("DOMContentLoaded", () => {
@@ -26,26 +22,25 @@ async function handleSignIn(event: Event): Promise<void> {
     }
 
     // Récupération des valeurs du formulaire
-    const email = emailElement.value;
-    const password = passwordElement.value;
+    const email: string= emailElement.value;
+    const password: string = passwordElement.value;
 
     // Si une valeur est vide -> stop la fonction
-    if (!email || !password) {
+    if (!email || !password ) {
         console.log("Please enter a username and password");
         return;
     }
 
     try {
         // Envoie de la requête
-        const response = await fetch("http://localhost:3000/api/auth/signin", {
+        const response: Response = await fetch("http://localhost:3000/api/auth/signin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
 
         // Récupération de la réponse
-        const { data } = await response.json();
-        console.log(data);
+        const { data }: { data: signInData } = await response.json();
 
             // Stockage du TOKEN dans le LocalStorage
             const token = data.token;

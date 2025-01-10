@@ -5,7 +5,7 @@ import { getSession } from "./utils/get-session.js";
 import { deleteToken } from "./utils/del-token.js";
 
 // Récupération du TOKEN
-const token = getSession();
+const token: string | null = getSession();
 
 // Si il n'y a pas de TOKEN -> redirection vers la page de connexion
 if (!token) {
@@ -45,7 +45,7 @@ closeButtonEdit.addEventListener("click", () => {
 });
 
 // Création d'un TaskController
-const taskController = new TaskController();
+const taskController: TaskController = new TaskController();
 
 // Stockage du TaskController dans le navigateur
 (window as any).taskController = taskController;
@@ -66,9 +66,9 @@ taskForm.addEventListener("submit", async (event: Event) => {
     }
 
     // Récupération des valeurs du formulaire
-    const title = titleElement.value;
-    const description = descriptionElement.value;
-    const dueDate = dueDateElement.value;
+    const title: string = titleElement.value;
+    const description: string = descriptionElement.value;
+    const dueDate: Date = new Date(dueDateElement.value);
 
     // Si une valeur est vide -> stop la fonction
     if (!title || !description || !dueDate) {
@@ -77,14 +77,13 @@ taskForm.addEventListener("submit", async (event: Event) => {
     }
 
     // Création d'une tâche et réinitialise le formulaire
-    await taskController.createTask(title, description, new Date(dueDate));
+    await taskController.createTask(title, description, dueDate);
     taskForm.reset();
     renderTasks();
 });
 
 // Template des tâches
 function taskListItem(task: Task): HTMLElement | undefined {
-    console.log("Creating task element for:", task);
     if (!task || !task.title || !task.description || !task.dueDate) {
         console.error("Invalid task data:", task);
         return undefined;
@@ -92,10 +91,10 @@ function taskListItem(task: Task): HTMLElement | undefined {
 
     const taskListItemElement = document.createElement('tr');
     const dueDate = task.dueDate ? new Date(task.dueDate).toLocaleDateString("fr-FR") : "No due date";    taskListItemElement.innerHTML = `
-        <td class="px-6 py-4">${task.title}</td>
-        <td class="px-6 py-4">${task.description}</td>
-        <td class="px-6 py-4">${dueDate}</td>
-        <td class="px-6 py-4">${task.completed ? "Completed" : "Not completed"}</td>
+        <td class="px-6 py-4 text-gray-100 font-medium">${task.title}</td>
+        <td class="px-6 py-4 text-gray-200">${task.description}</td>
+        <td class="px-6 py-4 text-gray-200">${dueDate}</td>
+        <td class="px-6 py-4 text-gray-200">${task.completed ? "Completed" : "Not completed"}</td>
         <td class="px-6 py-4">
             <button class="edit-btn py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" data-id="${task.id}">Edit</button>
             <button class="delete-btn py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" data-id="${task.id}">Delete</button>
@@ -104,14 +103,14 @@ function taskListItem(task: Task): HTMLElement | undefined {
     `;
 
     // Récupération des boutons des tâches
-    const deleteTaskButton = taskListItemElement.querySelector('.delete-btn');
-    const editTaskButton = taskListItemElement.querySelector('.edit-btn');
-    const completeTaskButton = taskListItemElement.querySelector('.complete-btn');
+    const deleteTaskButton = taskListItemElement.querySelector('.delete-btn') as HTMLButtonElement;
+    const editTaskButton = taskListItemElement.querySelector('.edit-btn') as HTMLButtonElement;
+    const completeTaskButton = taskListItemElement.querySelector('.complete-btn') as HTMLButtonElement;
 
     // Suppression de la tâche
     if (deleteTaskButton) {
         deleteTaskButton.addEventListener("click", async () => {
-            const taskId = deleteTaskButton.getAttribute("data-id");
+            const taskId: number | null = deleteTaskButton.getAttribute("data-id") ? parseInt(deleteTaskButton.getAttribute("data-id") as string, 10) : null;
             if (taskId) {
                 await taskController.deleteTask(taskId as unknown as number);
                 renderTasks();
@@ -124,7 +123,7 @@ function taskListItem(task: Task): HTMLElement | undefined {
     // Modification de la tâche
     if (editTaskButton) {
         editTaskButton.addEventListener("click", () => {
-            const taskId = editTaskButton.getAttribute("data-id");
+            const taskId: number | null = editTaskButton.getAttribute("data-id") ? parseInt(editTaskButton.getAttribute("data-id") as string, 10) : null;
             if (taskId) {
                 const editTitleElement = document.getElementById("edit-title") as HTMLInputElement;
         const editDescriptionElement = document.getElementById("edit-description") as HTMLInputElement;
@@ -152,9 +151,9 @@ function taskListItem(task: Task): HTMLElement | undefined {
             event.preventDefault(); // Empêche la soumission du formulaire
 
             // Récupération des nouvelles valeurs
-            const newTitle = editTitleElement.value;
-            const newDescription = editDescriptionElement.value;
-            const newDueDate = editDueDateElement.value.split('T')[0];
+            const newTitle: string = editTitleElement.value;
+            const newDescription: string = editDescriptionElement.value;
+            const newDueDate: Date = new Date(editDueDateElement.value);
 
             // Vérification de l'existance des nouvelles valeurs
             if (!newTitle || !newDescription || !newDueDate) {
@@ -178,7 +177,7 @@ function taskListItem(task: Task): HTMLElement | undefined {
     // Complétion de la tâche
     if (completeTaskButton) {
         completeTaskButton.addEventListener("click", async () => {
-            const taskId = completeTaskButton.getAttribute("data-id");
+            const taskId: number | null = completeTaskButton.getAttribute("data-id") ? parseInt(completeTaskButton.getAttribute("data-id") as string, 10) : null;
             if (taskId) {
                 await taskController.completeTask(taskId as unknown as number);
                 renderTasks();
@@ -193,12 +192,11 @@ function taskListItem(task: Task): HTMLElement | undefined {
 // Récupération des tâches
 async function renderTasks() {
     taskListElement.innerHTML = "";
-    const tasks = await taskController.getAllTasks();
+    const tasks: Task[] = await taskController.getAllTasks();
     tasks.forEach(task => {
-        const taskElement = taskListItem(task);
+        const taskElement: HTMLElement | undefined = taskListItem(task);
         if (taskElement) {
             taskListElement.appendChild(taskElement);
-
         }
     });
 }

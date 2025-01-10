@@ -1,4 +1,4 @@
 // Fonction pour supprimer le token
-export const deleteToken = (): void => {
+export const deleteToken = () => {
     localStorage.removeItem("token");
 };

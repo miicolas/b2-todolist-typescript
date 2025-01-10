@@ -1,9 +1,4 @@
-// Interface
-interface SignUpData {
-    username: string;
-    email: string;
-    password: string;
-}
+import { signUpData } from "../models/type.js";
 
 // Récupération du formulaire de création de compte
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,9 +23,9 @@ async function handleSignUp(event: Event): Promise<void> {
     }
 
     // Récupération des valeurs du formulaire
-    const name = usernameElement.value;
-    const email = emailElement.value;
-    const password = passwordElement.value;
+    const name: string = usernameElement.value;
+    const email:string = emailElement.value;
+    const password:string = passwordElement.value;
 
     // Si une valeur est vide -> stop la fonction
     if (!name || !email || !password) {
@@ -40,22 +35,18 @@ async function handleSignUp(event: Event): Promise<void> {
 
     try {
         // Envoie de la requête
-        const response = await fetch("http://localhost:3000/api/auth/signup", {
+        const response: Response = await fetch("http://localhost:3000/api/auth/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, email, password })
         });
 
         // Récupération de la réponse
-        const { data } = await response.json();
-        console.log(data);
+        const { data } : { data: signUpData } = await response.json();
 
         // Renvoie d'erreur
         if (!response.ok) throw new Error(data.message || "Sign up failed");
 
-        // Renvoie de message de succès
-        console.log("Signed up successfully!");
-        window.location.href = "/views/";
         window.location.href = "/views/index.html";
 
     } catch (error) {

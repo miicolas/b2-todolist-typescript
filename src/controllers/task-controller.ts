@@ -15,7 +15,7 @@ export class TaskController {
   // Récupération de toutes les tâches
   async getAllTasks(): Promise<Task[]> {
     const response = await handleGetTodo();
-    return response as unknown as Task[];
+    return response?.data as unknown as Task[];
   }
 
   // Complétion d'une tâche

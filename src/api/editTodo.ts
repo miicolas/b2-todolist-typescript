@@ -1,21 +1,13 @@
 // Import
 import { getSession } from "../utils/get-session.js";
-
-// Interface
-interface  EditTodo {
-    title: string;
-    dueDate: Date;
-    description: string;
-    id: number;
-    
-}
+import { editTodoData, todoDataFetch } from "../models/type.js";
 
 // Fonction de modification d'une tâche
-export async function handleEditTodo({id, title, description, dueDate}: EditTodo): Promise<void> {
+export async function handleEditTodo({id, title, description, dueDate}: editTodoData): Promise<todoDataFetch | undefined> {
 
     try {
         // Envoie de la requête
-        const response = await fetch("http://localhost:3000/api/manage/todo/edit", {
+        const response: Response = await fetch("http://localhost:3000/api/manage/todos", {
             method: "PUT",
             headers: { 
                 "Content-Type": "application/json",
@@ -25,7 +17,7 @@ export async function handleEditTodo({id, title, description, dueDate}: EditTodo
         });
 
         // Récupération de la réponse
-        const { data } = await response.json();
+        const data: todoDataFetch = await response.json();
         
         // Renvoie d'erreur
         if (!response.ok) throw new Error(data.message || "Edit Todo failed");

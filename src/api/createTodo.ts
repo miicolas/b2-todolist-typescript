@@ -1,15 +1,9 @@
 // Import
 import { getSession } from "../utils/get-session.js";
-
-// Interface
-interface createTodoData {
-    title: string;
-    description: string;
-    dueDate: Date;
-}
+import { createTodoData, todoDataFetch} from "../models/type.js";
 
 // Fonction de création de tâche
-export async function handleCreateTodo({title, description, dueDate}: createTodoData): Promise<void> {
+export async function handleCreateTodo({title, description, dueDate}: createTodoData): Promise<todoDataFetch | undefined> {
 
     // Vérification des valeurs du formulaire de création
     if (!title || !description || !dueDate) {
@@ -19,7 +13,7 @@ export async function handleCreateTodo({title, description, dueDate}: createTodo
 
     try {
         // Envoie de la requête
-        const response = await fetch("http://localhost:3000/api/manage/todo", {
+        const response: Response = await fetch("http://localhost:3000/api/manage/todo", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
@@ -29,7 +23,7 @@ export async function handleCreateTodo({title, description, dueDate}: createTodo
         });
 
         // Récupération de la réponse
-        const { data } = await response.json();
+        const data: todoDataFetch= await response.json();
         
         // Renvoie d'erreur
         if (!response.ok) throw new Error(data.message || "Create todo failed");

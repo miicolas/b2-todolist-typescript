@@ -1,5 +1,5 @@
 // Fonction pour obtenir la session
-export const getSession = (): string | null =>  {
+export const getSession = () => {
     const session = localStorage.getItem("token");
     return session ? session : null;
 };
