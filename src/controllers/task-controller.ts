@@ -1,43 +1,30 @@
-// Imports
 import { Task } from "../models/type.js";
-import { LocalStorageService } from "../utils/localstorage-service.js";
-import { handleCreateTodo} from "../api/createTodo.js";
+import { handleCreateTodo } from "../api/createTodo.js";
+import { handleGetTodo } from "../api/getTodos.js";
+import { handleCompleteTodo } from "../api/completeTodo.js";
+import { handleDeleteTodo } from "../api/deleteTodo.js";
 
 // Class TaskController
 export class TaskController {
-  private taskService: LocalStorageService<Task>;
-  private currentUserId: string;
-
-  constructor(currentUserId: string) {
-    this.taskService = new LocalStorageService<Task>("tasks");
-    this.currentUserId = currentUserId;
-  }
 
   // Création d'une tâche
-  async createTask(title: string, description: string, dueDate: string) {
-    const createTask = await handleCreateTodo(title, description, dueDate);
-    return createTask;
+  async createTask(title: string, description: string, dueDate: string): Promise<void> {
+    await handleCreateTodo(title, description, dueDate);
   }
 
   // Récupération de toutes les tâches
   async getAllTasks(): Promise<Task[]> {
-    const tasks = await this.taskService.getAll();
-    return tasks
+    const response = await handleGetTodo();
+    return response as unknown as Task[];
   }
 
   // Complétion d'une tâche
-  async completeTask(id: number) {
-    
-    const completeTask = await this.taskService.completeItem(id as unknown as number);
-    return completeTask;
-
+  async completeTask(id: number): Promise<void> {
+    await handleCompleteTodo(id);
   }
 
   // Suppression d'une tâche
-  async deleteTask(id: number) {
-    
-    const deleteTask = await this.taskService.deleteItem(id as unknown as number);
-    return deleteTask;
+  async deleteTask(id: number): Promise<void> {
+    await handleDeleteTodo(id);
   } 
-  
 }

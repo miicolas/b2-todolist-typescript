@@ -47,13 +47,13 @@ function handleSignIn(event) {
             console.log(data);
             // Stockage du TOKEN dans le LocalStorage
             const token = data.token;
-            console.log(token);
             if (token) {
                 localStorage.setItem("token", token);
             }
             // En cas d'erreur, créer un message d'erreur
             if (!response.ok)
                 throw new Error(data.message || "Sign in failed");
+            window.location.href = "/views/dashboard.html";
             // En cas d'erreur, créer un message d'erreur
         }
         catch (error) {
