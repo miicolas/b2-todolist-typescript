@@ -2,6 +2,7 @@
 import { TaskController } from "./controllers/task-controller.js";
 import { Task } from "./models/type.js";
 import { getSession } from "./utils/get-session.js";
+import { deleteToken } from "./utils/del-token.js";
 
 // Récupération du TOKEN
 const token = getSession();

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 // Imports
 import { TaskController } from "./controllers/task-controller.js";
 import { getSession } from "./utils/get-session.js";
+import { deleteToken } from "./utils/del-token.js";
 // Récupération du TOKEN
 const token = getSession();
 // Si il n'y a pas de TOKEN -> redirection vers la page de connexion
@@ -17,7 +18,6 @@ if (!token) {
     console.log("No token found, redirecting to signin page");
     window.location.href = "/";
 }
-
 // Récupération du bouton de logout
 const logoutElement = document.getElementById("logout-btn");
 logoutElement.addEventListener("click", (e) => {
@@ -31,7 +31,6 @@ iconElement.addEventListener("click", (e) => {
     logoutElement.classList.toggle("slide-in");
     logoutElement.classList.remove("hidden");
 });
-
 // Récupération de la liste des tâches du formulaire de création de tâches
 const taskListElement = document.getElementById("task-list");
 const taskForm = document.getElementById("task-form");
