@@ -3,7 +3,7 @@ import { handleCreateTodo } from "../api/createTodo.js";
 import { handleGetTodo } from "../api/getTodos.js";
 import { handleCompleteTodo } from "../api/completeTodo.js";
 import { handleDeleteTodo } from "../api/deleteTodo.js";
-
+import { handleEditTodo } from "../api/editTodo.js";
 // Class TaskController
 export class TaskController {
 
@@ -27,4 +27,9 @@ export class TaskController {
   async deleteTask(id: number): Promise<void> {
     await handleDeleteTodo(id);
   } 
-}
+
+  // Modification d'une tâche
+  async editTask(id: number, title: string, description: string, dueDate: Date): Promise<void> {
+    await handleEditTodo(id, title, description, dueDate);
+  }
+} 
