@@ -2,31 +2,29 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" href="/src/assets/css/style.css">
+   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-8">
-    <nav class="mb-8 flex justify-end items-center gap-2">
-        <div class="slide-animation flex flex-col gap-2">
-            <p class="bg-gray-50 dark:bg-gray-800 w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded ring-2 ring-blue-500">
-                C'est moi
-            </p>
-            <button id="logout-btn"
-                class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-                Log out
-            </button>
-        </div>
-        <img id="icon" class="max-h-20" src="/src/assets/user.png" alt="icon">
-    </nav>
+<body class="bg-gray-100 p-8">
     <div class="max-w-4xl mx-auto">
-
+       <div class="mb-8 flex justify-between items-center gap-2">
+           <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
+           <div class="flex gap-4">
+                <div class="overflow-hidden flex items-center">
+                   <button id="logout-btn" class="hidden slide-out bg-blue-500 text-white px-3 py-1.5 rounded hover:bg-blue-600">Log out</button>    
+                </div>
+                <img id="icon" class="cursor-pointer max-h-12" src="/src/assets/user.png" alt="icon">
+            </div>
+       </div>
+       
+       <p class="text-gray-600 mb-8">This is the dashboard page.</p>
+<div class="max-w-4xl mx-auto">
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden">
-
             <div class="relative p-4 w-full max-w-md max-h-full">
                 <!-- Modal content -->
                 <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow">

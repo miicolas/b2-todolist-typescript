@@ -1,0 +1,27 @@
+.slide-in {
+    animation: 1s ease-out 0s 1 normal forwards running slide-in;
+}
+
+.slide-out {
+    animation: 1s ease-out 0s 1 normal forwards running slide-out;
+}
+
+@keyframes slide-in {
+  from {
+    translate: 7.5rem 0;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 7.5rem 0;
+  }
+}
