@@ -52,8 +52,7 @@ function handleSignUp(event) {
                 throw new Error(data.message || "Sign up failed");
             // En cas de réussite, créer un message de réussite et rediriger vers la page de connection
             console.log("Signed up successfully!");
-            window.location.href = "/views/index.html";
-            // En cas d'erreur, créer un message d'erreur
+            window.location.href = "/views/";
         }
         catch (error) {
             console.log(error instanceof Error ? error.message : "Sign up failed");

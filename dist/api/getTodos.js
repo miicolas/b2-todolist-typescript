@@ -11,7 +11,6 @@ import { getSession } from "../utils/get-session.js";
 export function handleGetTodo() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(getSession());
             const response = yield fetch("http://localhost:3000/api/manage/todos", {
                 method: "GET",
                 headers: {

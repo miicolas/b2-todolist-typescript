@@ -56,6 +56,7 @@ async function handleSignUp(event: Event): Promise<void> {
 
         // En cas de réussite, créer un message de réussite et rediriger vers la page de connection
         console.log("Signed up successfully!");
+        window.location.href = "/views/";
         window.location.href = "/views/index.html";
 
     // En cas d'erreur, créer un message d'erreur
