@@ -35,9 +35,8 @@ async function handleSignIn(event: Event): Promise<void> {
         return;
     }
 
-    // Connection au back
     try {
-        // Liaison avec le back et envoie du formulaire
+        // Envoie de la requête
         const response = await fetch("http://localhost:3000/api/auth/signin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -54,13 +53,13 @@ async function handleSignIn(event: Event): Promise<void> {
                 localStorage.setItem("token", token);
             }
                 
-        // En cas d'erreur, créer un message d'erreur
+        // Renvoi d'erreur
         if (!response.ok) throw new Error(data.message || "Sign in failed");
 
         window.location.href = "/views/dashboard.html";
         
-    // En cas d'erreur, créer un message d'erreur
     } catch (error) {
+        // Renvoi d'erreur
         console.log(error instanceof Error ? error.message : "Sign in failed");
     }
 }
