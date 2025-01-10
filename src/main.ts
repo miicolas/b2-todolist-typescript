@@ -1,6 +1,7 @@
 // Imports
 import { TaskController } from "./controllers/task-controller.js";
 import { Task } from "./models/type.js";
+import { deleteToken } from "./utils/del-token.js";
 import { getSession } from "./utils/get-session.js";
 
 // Récupération du TOKEN
@@ -9,8 +10,16 @@ const token = getSession();
 // Si il n'y a pas de TOKEN -> redirection vers la page de connexion
 if (!token) {
     console.log("No token found, redirecting to signin page");
-    window.location.href = "/";
+    window.location.href = "/views/index.html";
 }
+
+// Récupération du bouton de logout
+const logoutElement = document.getElementById("logout-btn") as HTMLElement;
+
+logoutElement.addEventListener("click", (e: Event) => {
+    deleteToken()
+    window.location.reload()
+})
 
 // Récupération de la liste des tâches du formulaire de création de tâches
 const taskListElement = document.getElementById("task-list") as HTMLElement;
@@ -130,6 +139,7 @@ async function renderTasks() {
         });
     } else {
         console.error("Tasks is not an array:", tasks);
-    }}
+    }
+}
 
 renderTasks();
